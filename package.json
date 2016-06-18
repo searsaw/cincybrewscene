@@ -32,6 +32,7 @@
     "pug": "^2.0.0-beta3"
   },
   "devDependencies": {
+    "gulp-watch": "^4.3.6",
     "nodemon": "^1.9.2"
   }
 }
