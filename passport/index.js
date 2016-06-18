@@ -3,7 +3,7 @@ const User = require('../mongoose/user');
 const initializeTwitter = require('./twitter');
 const initializeFacebook = require('./facebook');
 
-module.exports = () => {
+module.exports = (server) => {
   initializeFacebook(passport);
   initializeTwitter(passport);
 
@@ -17,5 +17,6 @@ module.exports = () => {
     });
   });
 
-  return passport.initialize();
+  server.use(passport.initialize());
+  server.use(passport.session());
 };
