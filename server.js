@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const morgan = require('morgan');
 const helmet = require('helmet');
 const initializePassport = require('./passport');
@@ -21,6 +22,9 @@ server.use(session({
   secret: process.env.APP_SECRET,
   resave: false,
   saveUninitialized: false,
+  store: new MongoStore({
+    url: process.env.MONGO_URL,
+  }),
 }));
 
 server.set('views', 'views');
