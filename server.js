@@ -26,7 +26,7 @@ server.use(session({
 server.set('views', 'views');
 server.set('view engine', 'handlebars');
 server.use(express.static('public'));
-server.use(initializePassport());
+initializePassport(server);
 
 server.use('/', routes);
 

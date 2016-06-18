@@ -7,6 +7,11 @@ const UserSchema = new Schema({
       id: String,
       accessToken: String,
       expires: String,
+    },
+    twitter: {
+      id: String,
+      token: String,
+      tokenSecret: String,
     }
   }
 });
