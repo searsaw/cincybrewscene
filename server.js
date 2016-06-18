@@ -1,11 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const morgan = require('morgan');
+const helmet = require('helmet');
 const initializePassport = require('./passport');
 const routes = require('./routes');
 const server = express();
 var exphbs  = require('express-handlebars');
 
+require('./mongoose');
+
+server.use(morgan('dev'));
+server.use(helmet());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 
