@@ -3,12 +3,14 @@ const passport = require('passport');
 
 authRoutes.get('/twitter', passport.authenticate('twitter'));
 authRoutes.get('/twitter-callback', passport.authenticate('twitter', {
-  failureRedirect: '/'
+  failureRedirect: '/',
 }));
 
 authRoutes.get('/facebook', passport.authenticate('facebook'));
 authRoutes.get('/facebook-callback', passport.authenticate('facebook', {
-  failureRedirect: '/'
-}));
+  failureRedirect: '/',
+}), (req, res) => {
+  res.redirect('/create');
+});
 
 module.exports = authRoutes;
