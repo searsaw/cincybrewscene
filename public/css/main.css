@@ -7,7 +7,7 @@ body {
   max-width: 100%;
   margin-top: 20px;
 }
-.homeButtons a {
+.homeButtons .btn {
   margin-top: 20px;
   background-color: white;
   background-image: none;
@@ -17,7 +17,12 @@ body {
   padding: 15px 0px;
   transition: background-color 0.9s ease;
 }
-.homeButtons a:hover {
+.homeButtons .btn:hover {
   background-color: black;
   color: #fff;
+}
+.homeButtons a {
+  color: black;
+  margin-top: 20px;
+  text-decoration: uppercase;
 }
