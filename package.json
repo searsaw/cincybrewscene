@@ -10,7 +10,7 @@
     "start": "node index.js",
     "serve": "nodemon index.js",
     "build:watch": "gulp watch",
-    "build:map": "envify public/js/find_directions.js > public/dist/find_directions.js",
+    "build:map": "envify public/js/find_directions.js > public/dist/find_directions.js"
   },
   "repository": {
     "type": "git",
