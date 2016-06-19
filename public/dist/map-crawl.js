@@ -18,15 +18,6 @@ $( document ).ready(function() {
 
   var oms = new OverlappingMarkerSpiderfier(map, options);
 
-  var companyIcon = L.icon({
-      iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
-
-      iconSize:     [45, 55], // size of the icon
-      shadowSize:   [50, 64], // size of the shadow
-      iconAnchor:   [22, 54], // point of the icon which will correspond to marker's location
-      shadowAnchor: [4, 62],  // the same for the shadow
-      popupAnchor:  [-3, -86] // point from which the popup should open relative to the iconAnchor
-  });
 
   var popup = new L.Popup();
 
@@ -136,6 +127,8 @@ $( document ).ready(function() {
 
       map.addLayer(polyline);
     });
+
+    $(".loader").hide();
   }
 
   function showStops(results) {
@@ -175,10 +168,37 @@ $( document ).ready(function() {
       url: "/api/crawls/breweries/" + id,
       success: function(result) {
         addToMap(result, false);
+        addToBrewBox(result.breweries);
         getGeomappingDataFromArcGis(Geoprocessor, Point, result.breweries);
     }});
 
   }
+
+  function addToBrewBox(brews){
+    brews.forEach(brew =>{
+      $(".allBreweries .brews").append(`
+        <div class='brew'>
+          <img src="${brew.logo}" />
+          <h3>${brew.name}</h3>
+        </div>
+        `);
+    })
+  }
+
+
+  $(".flyout").on("click",function(){
+    var parent =  $(this).parent();
+    parent.toggleClass('active');
+
+    if(parent.hasClass('active'))
+    {
+      parent.css("right","0px");
+    }
+    else
+    {
+      parent.css("right","-260px");
+    }
+  })
 
   const dependencies = [
     "esri/tasks/Geoprocessor",
