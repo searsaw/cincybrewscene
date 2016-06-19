@@ -1716,3 +1716,15 @@ html {
   background-color: black;
   color: #fff;
 }
+
+@media (max-width: 780px) {
+  .create-button {
+    left: 42%;
+  }
+}
+
+@media (max-width: 780px) {
+  .create-button {
+    left: 35%;
+  }
+}
