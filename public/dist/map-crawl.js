@@ -7,7 +7,7 @@ $( document ).ready(function() {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18,
       id: 'jakeboyles.j0ajipap',
-      accessToken: process.env.MAPBOX_KEY,
+      accessToken: "pk.eyJ1IjoiamFrZWJveWxlcyIsImEiOiJNcGJpWXhJIn0.ONDjoScLnbU4_VVfXmeIAA",
   }).addTo(map);
 
 
@@ -73,8 +73,8 @@ $( document ).ready(function() {
   }
 
 
-
-  $.ajax({url: "/api/breweries", success: function(result){
+var id = $('input').val();
+  $.ajax({url: "/api/crawls/breweries/"+id, success: function(result){
       addToMap(result,false);
   }});
 
