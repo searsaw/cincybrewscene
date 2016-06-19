@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const initializePassport = require('./passport');
 const routes = require('./routes');
 const server = express();
-var exphbs  = require('express-handlebars');
+const exphbs  = require('express-handlebars');
 
 require('./mongoose');
 

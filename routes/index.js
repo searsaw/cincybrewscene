@@ -1,5 +1,8 @@
 const router = require('express').Router();
 const authRoutes = require('./auth');
+const brewery = require('../mongoose/brewery');
+
+
 
 router.use('/auth', authRoutes);
 
@@ -8,12 +11,13 @@ router.get('/', (req, res) => {
 });
 
 router.get('/create', (req, res) => {
-	var array = ['jake','balls'];
 
-	var data = {
-		array: array,
-	};
-  res.render('create',data);
+  brewery.find(function (err, brews) {
+    if (err) return console.error(err);
+    res.render('create',{brews:brews});
+  })
+  
+
 });
 
 module.exports = router;

@@ -15,6 +15,7 @@ const BrewerySchema = new Schema({
   website: String,
   twitter: String,
   facebook: String,
+  logo: String,
 });
 
 module.exports = mongoose.model('Brewery', BrewerySchema);

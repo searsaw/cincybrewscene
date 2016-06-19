@@ -12,9 +12,13 @@ module.exports = (server) => {
   });
 
   passport.deserializeUser(function(id, done) {
-    User.findById(id, function (err, user) {
+    console.log(id);
+
+    User.findById(id, function(err, user) {
       done(err, user);
     });
+
+
   });
 
   server.use(passport.initialize());

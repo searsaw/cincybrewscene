@@ -3,7 +3,7 @@ body {
     font-family: 'Cairo', sans-serif;
 }
 
-header {
+.header {
 	background-color:lighten(black,10);
 	color:#fff;
 	height:80px;
@@ -56,5 +56,19 @@ header {
 		margin-bottom:20px;
 		color:#000;
 		border:1px solid darken(#DADADA,10);
+	}
+}
+
+.brewery {
+	padding:20px;
+	img {
+		max-width:100%;
+		max-height:100px;
+	}
+}
+
+.brewery.active {
+	img {
+		border:2px solid grey;
 	}
 }
