@@ -51,7 +51,7 @@ router.post('/brewery/create', (req,res) => {
 
 function isLoggedIn(req,res,next){
   if(typeof req.user!== "object"){
-   res.redirect('login')
+   return res.redirect('login');
   }
   next();
 }
