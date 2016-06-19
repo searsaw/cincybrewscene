@@ -199,10 +199,17 @@ $( document ).ready(function() {
     const point = L.latLng(latitude, longitude);
 
     map.setView(point, 14);
+
+    closeAllBreweries();
   });
 
+  function closeAllBreweries() {
+    const ele = $('.allBreweries');
+    ele.removeClass('active');
+    ele.css('right', '-260px');
+  }
 
-  $(".flyout").on("click",function(){
+  $(".flyout").on("click",function() {
     var parent =  $(this).parent();
     parent.toggleClass('active');
 
@@ -215,6 +222,25 @@ $( document ).ready(function() {
       parent.css("right","-260px");
     }
   });
+
+  if ('geolocation' in navigator) {
+    var userLocationMarker = null;
+
+    navigator.geolocation.watchPosition(position => {
+      if (userLocationMarker) {
+        markers.removeLayer(userLocationMarker);
+        oms.removeMarker(userLocationMarker);
+      }
+
+      const coords = position.coords;
+      const point = L.latLng(coords.latitude, coords.longitude);
+
+      userLocationMarker = new L.Marker(point);
+
+      markers.addLayer(userLocationMarker);
+      oms.addMarker(userLocationMarker);
+    });
+  }
 
   const dependencies = [
     "esri/tasks/Geoprocessor",
