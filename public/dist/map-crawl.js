@@ -193,7 +193,6 @@ $( document ).ready(function() {
   }
 
   $('body').on('click', '.brew', function() {
-    console.log(this);
     const ele = $(this);
     const longitude = ele.data('long');
     const latitude = ele.data('lat');
