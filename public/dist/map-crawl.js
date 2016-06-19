@@ -1,4 +1,6 @@
 $( document ).ready(function() {
+  var currentLat = null
+  var currentLong = null;
 
   var map = L.map('map').setView([39.1300, -84.5167], 12);
 
@@ -51,17 +53,37 @@ $( document ).ready(function() {
     <p class='content'>
     <i class="fa fa-home"></i> ${brew.address}<br>
     <i class="fa fa-phone"></i> ${brew.phone}<br>
+    <img
+      width="40"
+      height="40"
+      class="uber-link"
+      src="/images/uber.png"
+      data-latitude="${brew.loc[1]}"
+      data-longitude="${brew.loc[0]}"
+      data-name="${brew.name}"
+      data-address="${brew.address}, ${brew.city}, ${brew.state} ${brew.zip}"
+    />
     </p>`;
 
     markers.addLayer(marker);
 
     oms.addMarker(marker);
-
   });
 
   map.addLayer(markers);
 
   }
+
+  $('body').on('click', '.uber-link', function() {
+    const ele = $(this);
+    const dropLat = ele.data('latitude');
+    const dropLong = ele.data('longitude');
+    const dropName = ele.data('name');
+    const dropAddress = ele.data('address');
+    const link = `https://m.uber.com/ul?client_id=gY6iGb3XfnCI35tZ968HvPWA1rmgBSK1&action=setPickup&pickup[latitude]=${currentLat}&pickup[longitude]=${currentLong}&pickup[nickname]=Current%20Location&dropoff[latitude]=${dropLat}&dropoff[longitude]=${dropLong}&dropoff[nickname]=${encodeURIComponent(dropName)}&dropoff[formatted_address]=${encodeURIComponent(dropAddress)}&product_id=68cddf62-ea57-4cdf-9c63-dfbfebfd7095`;
+
+    window.location = link;
+  });
 
   function formatDepot(depot) {
     return {
@@ -233,7 +255,10 @@ $( document ).ready(function() {
       }
 
       const coords = position.coords;
-      const point = L.latLng(coords.latitude, coords.longitude);
+      currentLat = coords.latitude;
+      currentLong = coords.longitude;
+
+      const point = L.latLng(currentLat, currentLong);
 
       userLocationMarker = new L.Marker(point);
 

@@ -1746,3 +1746,7 @@ html {
     left: 30%;
   }
 }
+
+.uber-link {
+  cursor: pointer;
+}
