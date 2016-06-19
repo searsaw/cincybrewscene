@@ -131,8 +131,16 @@ $( document ).ready(function() {
     $(".loader").hide();
   }
 
-  function showStops(results) {
-    console.log('showStops', results);
+  function showStops(breweries) {
+    return results => {
+      const stops = results.value.features
+        .slice()
+        .sort((a, b) => a.attributes.Sequence - b.attributes.Sequence)
+        .map(f => f.attributes.Name)
+        .map(n => breweries.find(b => b.name === n))
+        .filter(Boolean);
+      addToBrewBox(stops);
+    };
   }
 
   function showDirections(results) {
@@ -157,7 +165,7 @@ $( document ).ready(function() {
 
     geoprocessor.submitJob(params).then(results => {
       geoprocessor.getResultData(results.jobId, "out_routes").then(showRoutes);
-      geoprocessor.getResultData(results.jobId, "out_stops").then(showStops);
+      geoprocessor.getResultData(results.jobId, "out_stops").then(showStops(data));
       geoprocessor.getResultData(results.jobId, "out_directions").then(showDirections);
     });
   }
@@ -168,7 +176,6 @@ $( document ).ready(function() {
       url: "/api/crawls/breweries/" + id,
       success: function(result) {
         addToMap(result, false);
-        addToBrewBox(result.breweries);
         getGeomappingDataFromArcGis(Geoprocessor, Point, result.breweries);
     }});
 
@@ -177,13 +184,23 @@ $( document ).ready(function() {
   function addToBrewBox(brews){
     brews.forEach(brew =>{
       $(".allBreweries .brews").append(`
-        <div class='brew'>
+        <div class='brew' data-long="${brew.loc[0]}" data-lat="${brew.loc[1]}">
           <img src="${brew.logo}" />
           <h3>${brew.name}</h3>
         </div>
         `);
     })
   }
+
+  $('body').on('click', '.brew', function() {
+    console.log(this);
+    const ele = $(this);
+    const longitude = ele.data('long');
+    const latitude = ele.data('lat');
+    const point = L.latLng(latitude, longitude);
+
+    map.setView(point, 14);
+  });
 
 
   $(".flyout").on("click",function(){
@@ -198,7 +215,7 @@ $( document ).ready(function() {
     {
       parent.css("right","-260px");
     }
-  })
+  });
 
   const dependencies = [
     "esri/tasks/Geoprocessor",
