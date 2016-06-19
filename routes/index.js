@@ -13,10 +13,16 @@ router.get('/', (req, res) => {
   res.render('index');
 });
 
-
-
 router.get('/map/:id', (req, res) => {
-  res.render('map-crawl',{id:req.params.id});
+  crawl.findById(req.params.id).then((crawl, error) => {
+    console.log(crawl);
+    if (!crawl) res.sendStatus(404);
+    else if (error) res.status(500).json({ error });
+    else res.render('map-crawl', {
+      id: req.params.id,
+      crawl
+    });
+  });
 });
 
 router.get('/map', (req, res) => {

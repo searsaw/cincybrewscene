@@ -1754,3 +1754,11 @@ html {
 .submit-new-crawl-button {
   margin-bottom: 40px;
 }
+
+#share-buttons {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 30px;
+}
