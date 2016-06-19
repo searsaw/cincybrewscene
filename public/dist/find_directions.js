@@ -1,8 +1,8 @@
 function formatDepot(depot) {
   return {
     geometry: {
-      x: depot.loc[0],
-      y: depot.loc[1],
+      x: depot.point.x,
+      y: depot.point.y,
     },
     attributes: {
       Name: depot.name,
@@ -19,8 +19,8 @@ function getDepots(depots) {
 function formatOrder(order) {
   return {
     geometry: {
-      x: order.loc[0],
-      y: order.loc[1],
+      x: order.point.x,
+      y: order.point.y,
     },
     attributes: {
       Name: order.name,
@@ -34,11 +34,21 @@ function getOrders(orders) {
   };
 }
 
-function getRoutes() {
+function getRoute(depot, i) {
   return {
-    attributes: [{
-      Name: "Main Route",
-    }],
+    attributes: {
+      Name: `Route ${i + 1}`,
+      StartDepotName: depot.name,
+      EndDepotName: depot.name,
+      EarliestStartTime: 1455609600000,
+      LatestStartTime: 1455609600000,
+    },
+  };
+}
+
+function getRoutes(depots) {
+  return {
+    features: depots.map(getRoute),
   };
 }
 
@@ -55,6 +65,11 @@ function showDirections(results) {
 }
 
 function getGeomappingDataFromArcGis(Geoprocessor, Point, data) {
+  data = data.map(d => {
+    d.point = new Point(d.loc[0], d.loc[1]);
+    return d;
+  });
+
   const geoserviceUrl = 'https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem';
   const arcgis = "zlut5gMuE4iwuIom6enafnzQZkYBFpmteWcUOojhQFV5sa-zNfynF7EOQ1TDnEsQDxqQ1LLB8KT6qeKdVSeBS5CNxjDuB9WU7MLvJUhvNfem-e9TBdPgrDBe9HKCpx27mFsky-LKoPtlTvnVZ82Qig..";
   const depots = data.slice(0, 1);
@@ -66,12 +81,11 @@ function getGeomappingDataFromArcGis(Geoprocessor, Point, data) {
     distance_units: "Miles",
     depots: JSON.stringify(getDepots(depots)),
     orders: JSON.stringify(getOrders(orders)),
-    routes: JSON.stringify(getRoutes()),
+    routes: JSON.stringify(getRoutes(depots)),
     populate_directions: true,
   };
 
   geoprocessor.submitJob(params).then(results => {
-    console.log('results', results);
     geoprocessor.getResultData(results.jobId, "out_routes").then(showRoutes);
     geoprocessor.getResultData(results.jobId, "out_stops").then(showStops);
     geoprocessor.getResultData(results.jobId, "out_directions").then(showDirections);

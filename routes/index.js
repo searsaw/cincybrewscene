@@ -13,6 +13,12 @@ router.get('/', (req, res) => {
   res.render('index');
 });
 
+
+
+router.get('/map/:id', (req, res) => {
+  res.render('map-crawl',{id:req.params.id});
+});
+
 router.get('/map', (req, res) => {
   res.render('map');
 });

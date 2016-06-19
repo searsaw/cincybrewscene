@@ -1553,6 +1553,10 @@ body {
   color: #000;
   border: 1px solid #c1c1c1;
 }
+#map {
+  width: 100%;
+  height: 900px;
+}
 .brewery {
   padding: 20px;
   height: 150px;
@@ -1563,22 +1567,14 @@ body {
   margin: 0px auto;
   display: block;
   filter: grayscale(100%);
-  filter: url("data:image/svg+xml;utf8,&lt;svg xmlns=\'http://www.w3.org/2000/svg\'&gt;&lt;filter id=\'grayscale\'&gt;&lt;feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/&gt;&lt;/filter&gt;&lt;/svg&gt;#grayscale");
-  /* Firefox 10+, Firefox on Android */
-  filter: gray;
-  /* IE6-9 */
   -webkit-filter: grayscale(100%);
   /* Chrome 19+, Safari 6+, Safari 6+ iOS */
 }
 .brewery.active img {
   transform: scale(1.4) rotate(20deg);
-  -webkit-transform: scale(1.4) rotate(20deg);
-  filter: url("data:image/svg+xml;utf8,&lt;svg xmlns=\'http://www.w3.org/2000/svg\'&gt;&lt;filter id=\'grayscale\'&gt;&lt;feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/&gt;&lt;/filter&gt;&lt;/svg&gt;#grayscale");
-  /* Firefox 10+, Firefox on Android */
-  filter: gray;
-  /* IE6-9 */
-  -webkit-filter: grayscale(0%);
-  /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+  -webkit-transform: scale(1.6) rotate(20deg);
+  filter: none;
+  -webkit-filter: none;
 }
 .btn-primary {
   margin-top: 20px;
@@ -1599,6 +1595,7 @@ body {
   margin-top: 40px;
   display: inline-block;
 }
+<<<<<<< HEAD
 .top5 { margin-top:5px; }
 .top7 { margin-top:7px; }
 .top10 { margin-top:10px; }
@@ -1617,4 +1614,44 @@ body {
   /* Set the fixed height of the footer here */
   height: 60px;
   background-color: #f5f5f5;
+=======
+.leaflet-popup {
+  bottom: 40px !important;
+}
+.leaflet-popup-content b {
+  background-color: #000;
+  color: #fff;
+  display: block;
+  padding: 10px 20px;
+  width: 102%;
+  margin-left: -1%;
+  margin-top: -5px;
+  border-radius: 10px 10px 0px 0px;
+}
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 55;
+}
+.leaflet-popup-close-button {
+  color: #fff !important;
+  margin-top: 2px;
+  margin-right: 10px;
+  transition: all .2s;
+}
+.leaflet-popup-close-button:hover {
+  transform: scale(1.5);
+}
+.leaflet-popup-content {
+  margin: 0;
+}
+.leaflet-popup-content .content {
+  padding: 20px;
+  padding-top: 0;
+  padding-bottom: 5px;
+}
+.leaflet-popup-content .content a {
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+>>>>>>> 24d92108b17b851b4d7e3585dbafb5582125e376
 }
