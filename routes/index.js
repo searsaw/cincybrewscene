@@ -15,7 +15,6 @@ router.get('/', (req, res) => {
 
 router.get('/map/:id', (req, res) => {
   crawl.findById(req.params.id).then((crawl, error) => {
-    console.log(crawl);
     if (!crawl) res.sendStatus(404);
     else if (error) res.status(500).json({ error });
     else res.render('map-crawl', {

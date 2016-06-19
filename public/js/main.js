@@ -8,7 +8,7 @@ $( document ).ready(function() {
 	var currentArray = [];
 
 	$('.brewery').css('cursor','pointer');
-	$("body").on("click",'.brewery',function(){
+	$("body").on("click",'.brewery', function(){
 		var id = $(this).data('breweryid');
 		var arrayPosition = currentArray.indexOf(id);
 
@@ -33,9 +33,8 @@ $( document ).ready(function() {
 	    startTime: hours+':00',
 	});
 
-
-	$('form').on('submit',function(e){
-		e.preventDefault();
+	$('form').on('submit', event => {
+		event.preventDefault();
 
 		var data = {
 			name: $(this).find('.name').val(),
@@ -48,7 +47,7 @@ $( document ).ready(function() {
 		  type: "POST",
 		  url: '/brewery/create',
 		  data: data,
-		  success: function(response){
+		  success: response => {
 		  	if(response.errors)
 		  	{
 		  		alert(response.errors.name.message);
@@ -57,8 +56,5 @@ $( document ).ready(function() {
 		  	window.location.href = '/map/'+response._id;
 		  }		
 		});
-
-		
 	})
-
 });

@@ -18,7 +18,7 @@ gulp.task('less', function () {
 });
 
 gulp.task('babel', () => {
-	return gulp.src('./public/js/main.js')
+	return gulp.src('./public/js/*.js')
 		.pipe(babel({
 			presets: ['es2015']
 		}))
