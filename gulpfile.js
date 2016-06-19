@@ -4,7 +4,10 @@ const less    = require('gulp-less');
 const path    = require('path');
 const babel   = require('gulp-babel');
 const uglify  = require('gulp-uglify');
-
+const browserify = require('browserify');
+const babelify = require('babelify');
+const envify = require('envify');
+const minifyify = require('minifyify');
 
 gulp.task('less', function () {
   return gulp.src('./public/less/*.less')
@@ -15,7 +18,7 @@ gulp.task('less', function () {
 });
 
 gulp.task('babel', () => {
-	return gulp.src('./public/js/*.js')
+	return gulp.src('./public/js/main.js')
 		.pipe(babel({
 			presets: ['es2015']
 		}))
