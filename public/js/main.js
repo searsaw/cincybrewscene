@@ -7,7 +7,8 @@ $( document ).ready(function() {
 
 	var currentArray = [];
 
-	$("body").on("click",'.brewery',function(){
+	$('.brewery').css('cursor','pointer');
+	$(document).on("click",'.brewery',function(){
 		let id = $(this).data('breweryid');
 		let arrayPosition = currentArray.indexOf(id);
 
