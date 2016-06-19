@@ -1750,3 +1750,7 @@ html {
 .uber-link {
   cursor: pointer;
 }
+
+.submit-new-crawl-button {
+  margin-bottom: 40px;
+}
