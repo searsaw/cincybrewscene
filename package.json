@@ -11,7 +11,6 @@
     "serve": "nodemon index.js",
     "build:watch": "gulp watch",
     "build:map": "envify public/js/find_directions.js > public/dist/find_directions.js",
-    "build:mapbox": "envify public/js/map.js > public/dist/map.js"
   },
   "repository": {
     "type": "git",
