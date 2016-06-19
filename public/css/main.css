@@ -1506,7 +1506,14 @@ fieldset[disabled] .btn-yahoo.active {
 }
 body {
   font-family: 'Cairo', sans-serif;
-  padding-bottom: 50px;
+  padding-bottom: 0px;
+  position: relative;
+  height: 100%;
+}
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 .header {
   background-color: #1a1a1a;
@@ -1555,7 +1562,7 @@ body {
 }
 #map {
   width: 100%;
-  height: 900px;
+  height: 100%;
 }
 .brewery {
   padding: 20px;
@@ -1654,4 +1661,60 @@ body {
   display: block;
   width: 100%;
 >>>>>>> 24d92108b17b851b4d7e3585dbafb5582125e376
+}
+.loader {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.loader i {
+  font-size: 150px;
+  color: #fff;
+  position: absolute;
+  top: 40%;
+  left: 45%;
+}
+.allBreweries {
+  position: absolute;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 400px;
+  overflow-y: scroll;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  overflow: visible;
+}
+.allBreweries .flyout {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 30px;
+  position: absolute;
+  top: 0;
+  left: -73px;
+}
+.allBreweries h2 {
+  color: #000;
+  margin-bottom: 20px;
+}
+.allBreweries .brews .brew {
+  margin-bottom: 30px;
+  width: 100%;
+  display: inline-block;
+}
+.allBreweries .brews .brew img {
+  max-width: 40px;
+  float: left;
+  display: inline-block;
+}
+.allBreweries .brews .brew h3 {
+  float: left;
+  font-size: 15px;
+  display: inline-block;
+  width: 150px;
+  vertical-align: top;
+  margin-top: 0;
+  margin-left: 10px;
 }

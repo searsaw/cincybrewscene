@@ -1,8 +1,18 @@
 <input type="hidden" id="id" value="{{id}}">
 <div id="map"></div>
 
+<div class="loader"><i class="fa fa-spinner fa-spin"></i></div>
+
+<div class="allBreweries">
+<div class="flyout">
+<i class="fa fa-beer"></i>
+</div>
+	<h2>Breweries In Crawl</h2>
+		<div class="brews">
+		</div>
+</div>
+
 {{#section 'scripts'}}
 <script src="/dist/map-crawl.js"></script>
 <script src="https://js.arcgis.com/4.0/"></script>
-<script src="dist/find_directions.js"></script>
 {{/section}}

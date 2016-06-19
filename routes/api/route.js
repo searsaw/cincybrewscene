@@ -1,4 +1,4 @@
-const Geomap = require('../../mongoose/Geomap');
+const Geomap = require('../../mongoose/geomap');
 
 module.exports = (req, res) => {
 

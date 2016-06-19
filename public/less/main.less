@@ -2,7 +2,14 @@
 
 body {
     font-family: 'Cairo', sans-serif;
-    padding-bottom:50px;
+    padding-bottom:0px;
+    position:relative;
+    height:100%;
+}
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 .header {
@@ -62,7 +69,7 @@ body {
 
 #map {
 	width:100%;
-	height:900px;
+	height:100%;
 }
 
 .brewery {
@@ -155,4 +162,69 @@ body {
       width:100%;
     }
   }
+}
+
+.loader{
+	background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+	i {
+		font-size:150px;
+		color:#fff;
+		position:absolute;
+		top:40%;
+		left:45%;
+	}
+}
+
+
+.allBreweries {
+	position:absolute;
+	top:0;
+	right:-250px;
+	width:250px;
+	height:400px;
+	overflow-y: scroll;
+	background-color:rgba(255,255,255,.8);
+	box-shadow: 0px 0px 20px rgba(0,0,0,.5);
+	padding:10px 20px;
+	overflow:visible;
+
+	.flyout {
+		background-color:rgba(255,255,255,.8);
+		padding:30px;
+		position:absolute;
+		top:0;
+		left:-73px;
+	}
+
+	h2 {
+		color:#000;
+		margin-bottom:20px;
+	}
+
+	.brews {
+		.brew {
+			margin-bottom:30px;
+			width:100%;
+			display:inline-block;
+			img {
+				max-width:40px;
+				float:left;
+				display:inline-block;
+			}
+
+			h3 {
+				float:left;
+				font-size:15px;
+				display:inline-block;
+				width:150px;
+				vertical-align: top;
+				margin-top:0;
+				margin-left:10px;
+			}
+		}
+	}
 }
