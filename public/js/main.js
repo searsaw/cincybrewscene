@@ -8,9 +8,9 @@ $( document ).ready(function() {
 	var currentArray = [];
 
 	$('.brewery').css('cursor','pointer');
-	$(document).on("click",'.brewery',function(){
-		let id = $(this).data('breweryid');
-		let arrayPosition = currentArray.indexOf(id);
+	$("body").on("click",'.brewery',function(){
+		var id = $(this).data('breweryid');
+		var arrayPosition = currentArray.indexOf(id);
 
 		$(this).toggleClass('active');
 		
@@ -37,7 +37,7 @@ $( document ).ready(function() {
 	$('form').on('submit',function(e){
 		e.preventDefault();
 
-		let data = {
+		var data = {
 			name: $(this).find('.name').val(),
 			time: $(this).find('.start').val(),
 			date: $(this).find('.datepicker').val(),
