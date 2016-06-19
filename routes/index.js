@@ -84,7 +84,7 @@ router.get('/tos', (req, res) => {
   res.render('tos');
 });
 
-routes.get('/uber', (req, res) => {
+router.get('/uber', (req, res) => {
   res.render('uber');
 })
 
