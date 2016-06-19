@@ -2,7 +2,7 @@ $( document ).ready(function() {
 
 	$('.datepicker').datepicker({
     	format: 'mm/dd/yyyy',
-    	startDate: '+1d'
+    	startDate: '+0d'
 	});
 
 	var currentArray = [];
