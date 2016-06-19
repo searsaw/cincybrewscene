@@ -26,7 +26,7 @@ router.post('/brewery/create', (req,res) => {
 		return;
 	}
 
-	breweries = breweries.map(brew => { 
+	breweries = breweries.map(brew => {
 	   return mongoose.Types.ObjectId(brew);
 	});
 
@@ -62,12 +62,20 @@ router.get('/create',isLoggedIn, (req, res) => {
     if (err) return console.error(err);
     res.render('create',{brews:brews});
   })
-  
+
 
 });
 
 router.get('/login', (req, res) => {
   res.render('login');
+});
+
+router.get('/privacy', (req, res) => {
+  res.render('privacy');
+});
+
+router.get('/tos', (req, res) => {
+  res.render('tos');
 });
 
 module.exports = router;
