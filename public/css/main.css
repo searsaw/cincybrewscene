@@ -1674,6 +1674,25 @@ html {
   top: 40%;
   left: 45%;
 }
+
+@media (max-width: 900px) {
+  .loader i {
+    left: 42%;
+  }
+}
+
+@media (max-width: 650px) {
+  .loader i {
+    left: 39%;
+  }
+}
+
+@media (max-width: 480px) {
+  .loader i {
+    left: 30%;
+  }
+}
+
 .allBreweries {
   position: absolute;
   top: 0;
