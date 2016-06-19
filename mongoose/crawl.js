@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
-const Brewery = require('./brewery');
 const User = require('./user');
 const Schema = mongoose.Schema;
 
 const CrawlSchema = new Schema({
   name: String,
-  breweries: [Brewery],
+  breweries: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Brewery',
+  }],
   owner: User,
   users: [User],
 });

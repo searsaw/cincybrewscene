@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/map', (req, res) => {
-  res.render('')
+  res.render('map');
 });
 
 router.get('/create', (req, res) => {
