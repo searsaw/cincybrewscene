@@ -1697,3 +1697,22 @@ html {
   margin-top: 0;
   margin-left: 10px;
 }
+
+.create-button {
+  position: absolute;
+  left: 45%;
+  bottom: 50px;
+  margin-top: 20px;
+  background-color: white;
+  background-image: none;
+  border: 2px solid black;
+  color: black;
+  font-size: 20px;
+  padding: 15px 5px;
+  transition: background-color 0.9s ease;
+}
+
+.create-button:hover {
+  background-color: black;
+  color: #fff;
+}
