@@ -10,15 +10,25 @@
 
         <div class="form-group">
           <label for="name">Name *</label>
-          <input type="text" required class="form-control" id="name">
+          <input type="text" class="name form-control" id="name">
         </div>
 
         <div class="form-group">
           <label for="name">Start Date *</label>
           <div class="input-group date">
-              <input type="text" required class="datepicker form-control" value="12-02-2012">
+              <input type="text" class="datepicker form-control" value="12-02-2012">
               <div class="input-group-addon">
                   <span class="glyphicon glyphicon-th"></span>
+              </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Start Time *</label>
+          <div class="input-group date">
+              <input type="text" class="start form-control timepicker">
+              <div class="input-group-addon">
+              <span class="fa fa-clock-o"></span>
               </div>
           </div>
         </div>
@@ -28,11 +38,14 @@
         </div>
 
         {{#each brews}}
-            <div data-breweryID='{{this._id}}' class="brewery col-xs-6 col-md-4">
+            <div data-breweryID='{{this._id}}' class="brewery col-xs-4 col-md-3">
               <img src="{{this.logo}}" />
             </div>
         {{/each}}
 
+        <div class="col-xs-12">
+        <button type="submit" class="submit btn btn-primary">CREATE</button>
+        </div>
       </form>
     </section>
   </div>

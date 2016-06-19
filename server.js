@@ -13,7 +13,7 @@ require('./mongoose');
 
 server.use(morgan('dev'));
 server.use(helmet());
-server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
 server.engine('handlebars', exphbs({

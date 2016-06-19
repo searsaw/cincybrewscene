@@ -1,5 +1,6 @@
 body {
   font-family: 'Cairo', sans-serif;
+  padding-bottom: 50px;
 }
 .header {
   background-color: #1a1a1a;
@@ -54,7 +55,28 @@ body {
 .brewery img {
   max-width: 100%;
   max-height: 100px;
+  margin: 0px auto;
+  display: block;
 }
 .brewery.active img {
-  border: 2px solid grey;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.btn-primary {
+  margin-top: 20px;
+  background-color: white;
+  background-image: none;
+  border: 2px solid black;
+  color: black;
+  font-size: 20px;
+  padding: 10px 60px;
+  transition: background-color 0.9s ease;
+}
+.btn-primary:hover {
+  background-color: black;
+  color: #fff;
+}
+.submit {
+  float: left;
+  margin-top: 40px;
+  display: inline-block;
 }
