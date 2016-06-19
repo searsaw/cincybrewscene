@@ -49,7 +49,14 @@ router.post('/brewery/create', (req,res) => {
     });
 });
 
-router.get('/create', (req, res) => {
+function isLoggedIn(req,res,next){
+  if(typeof req.user!== "object"){
+   res.redirect('login')
+  }
+  next();
+}
+
+router.get('/create',isLoggedIn, (req, res) => {
 
   brewery.find(function (err, brews) {
     if (err) return console.error(err);
@@ -57,6 +64,10 @@ router.get('/create', (req, res) => {
   })
   
 
+});
+
+router.get('/login', (req, res) => {
+  res.render('login');
 });
 
 module.exports = router;
