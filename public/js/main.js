@@ -1,18 +1,23 @@
 $( document ).ready(function() {
 
-	$('.datepicker').datepicker();
+	$('.datepicker').datepicker({
+    	format: 'mm/dd/yyyy',
+    	startDate: '+1d'
+	});
 
 	var currentArray = [];
 
-	$(".brewery").on("click",function(){
+	$('.brewery').css('cursor','pointer');
+	$(document).on("click",'.brewery',function(){
 		let id = $(this).data('breweryid');
 		let arrayPosition = currentArray.indexOf(id);
-		$(this).toggleClass('active');
 
+		$(this).toggleClass('active');
+		
 		if(arrayPosition > -1)
 		{
 			currentArray.splice(arrayPosition,1);
-			return;
+			return false;
 		}
 		
 		currentArray.push(id);
