@@ -169,9 +169,11 @@ $( document ).ready(function() {
     console.log('showDirections', results);
   }
 
-  function getGeomappingDataFromArcGis(Geoprocessor, Point, data) {
+ 
+
+  function getGeomappingDataFromArcGis(Geoprocessor, Point, data,token) {
     const geoserviceUrl = 'https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem';
-    const arcgis = "GDxFJOJfdQDsPH6jPqOQlwmouhbYJs2mlnAzRQkEUbm-Z8f7_Q0GktvbfFZch0i1WJYeNAZ5sS9IVO6-A3mzK4_9mBTL5tvxqX1b60e3iv8XPQ-AxFP4hLuXz3afu_k3jPKJohVG6_M-56ywgFSGH9Gn83kXK0Yz0N3urj3JemJ9gkrBspnqONq1PPuOToZt";
+    const arcgis = token;
     const depots = data.slice(0, 1);
     const orders = data.slice(1);
     const geoprocessor = new Geoprocessor(`${geoserviceUrl}?token=${arcgis}`);
@@ -193,12 +195,22 @@ $( document ).ready(function() {
   }
 
   function setupGeomapping(Geoprocessor, Point) {
+    let result;
     var id = $('input').val();
     $.ajax({
       url: "/api/crawls/breweries/" + id,
       success: function(result) {
+        result = result; 
         addToMap(result);
-        getGeomappingDataFromArcGis(Geoprocessor, Point, result.breweries);
+
+        $.ajax({
+          url: "/api/token",
+          success: function(token) {
+            console.log(result.breweries);
+            getGeomappingDataFromArcGis(Geoprocessor, Point, result.breweries,token);
+        }});
+
+
     }});
 
   }

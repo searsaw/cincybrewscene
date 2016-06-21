@@ -6,8 +6,11 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const initializePassport = require('./passport');
 const routes = require('./routes');
+const helpers = require('./helpers');
 const server = express();
 const exphbs = require('express-handlebars');
+const CronJob = require('cron').CronJob;
+let token = "";
 
 require('./mongoose');
 
@@ -36,11 +39,24 @@ server.use(session({
   }),
 }));
 
+helpers.then(function(token){
+    token = token.access_token;
+    exports.token = token;
+  })
+
+new CronJob('* * * * *', function() {
+  helpers.then(function(token){
+    token = token.access_token;
+    exports.token = token;
+  })
+}, null, true, 'America/Los_Angeles');
+
 server.set('views', 'views');
 server.set('view engine', 'handlebars');
 server.use(express.static('public'));
 initializePassport(server);
 
 server.use('/', routes);
+
 
 module.exports = server;
