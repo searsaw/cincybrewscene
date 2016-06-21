@@ -44,7 +44,7 @@ helpers.then(function(token){
     exports.token = token;
   })
 
-new CronJob('* * * * *', function() {
+new CronJob('0 1,13 * * *', function() {
   helpers.then(function(token){
     token = token.access_token;
     exports.token = token;
