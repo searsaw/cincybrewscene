@@ -1,1 +1,276 @@
-"use strict";$(document).ready(function(){function e(e){return{geometry:{x:e.loc[0],y:e.loc[1]},attributes:{Name:e.name}}}function t(t){return{features:t.map(e)}}function n(e){return{geometry:{x:e.loc[0],y:e.loc[1]},attributes:{Name:e.name}}}function a(e){return{features:e.map(n)}}function o(e,t){return{attributes:{Name:"Route "+(t+1),StartDepotName:e.name,EarliestStartTime:14556096e5,LatestStartTime:14556096e5}}}function r(e){return{features:e.map(o)}}function i(e){var t=e.value.features;t.forEach(function(e){var n=t[0].geometry.paths[0].map(function(e){return L.latLng(e[1],e[0])}),a=L.polyline(n);g.addLayer(a)}),$(".loader").hide()}function s(e){return function(t){var n=t.value.features.slice().sort(function(e,t){return e.attributes.Sequence-t.attributes.Sequence}).map(function(e){return e.attributes.Name}).map(function(t){return e.find(function(e){return e.name===t})}).filter(Boolean);l(n)}}function c(e){console.log("showDirections",e)}function u(e,n,o){var u="https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem",d="zlut5gMuE4iwuIom6enafnzQZkYBFpmteWcUOojhQFV5sa-zNfynF7EOQ1TDnEsQDxqQ1LLB8KT6qeKdVSeBS5CNxjDuB9WU7MLvJUhvNfem-e9TBdPgrDBe9HKCpx27mFsky-LKoPtlTvnVZ82Qig..",l=o.slice(0,1),p=o.slice(1),f=new e(u+"?token="+d),m={default_date:14556096e5,time_units:"Minutes",distance_units:"Miles",depots:JSON.stringify(t(l)),orders:JSON.stringify(a(p)),routes:JSON.stringify(r(l)),populate_directions:!0};f.submitJob(m).then(function(e){f.getResultData(e.jobId,"out_routes").then(i),f.getResultData(e.jobId,"out_stops").then(s(o)),f.getResultData(e.jobId,"out_directions").then(c)})}function d(e,t){var n=$("input").val();$.ajax({url:"/api/crawls/breweries/"+n,success:function(n){k(n),u(e,t,n.breweries)}})}function l(e){e.forEach(function(e){$(".allBreweries .brews").append("\n        <div class='brew' data-long=\""+e.loc[0]+'" data-lat="'+e.loc[1]+'">\n          <img src="'+e.logo+'" />\n          <h3>'+e.name+"</h3>\n        </div>\n        ")})}function p(){var e=$(".allBreweries");e.removeClass("active"),e.css("right","-260px")}var f=null,m=null,g=L.map("map").setView([39.13,-84.5167],12);L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",{attribution:'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',maxZoom:18,id:"jakeboyles.j0ajipap",accessToken:"pk.eyJ1IjoiamFrZWJveWxlcyIsImEiOiJNcGJpWXhJIn0.ONDjoScLnbU4_VVfXmeIAA"}).addTo(g);var h=new L.FeatureGroup,v={keepSpiderfied:!0},b=new OverlappingMarkerSpiderfier(g,v),y=new L.Popup;b.addListener("click",function(e){y.setContent(e.desc),y.setLatLng(e.getLatLng()),g.openPopup(y)});var h=new L.FeatureGroup,k=function(e){e=e.breweries,e.forEach(function(e){var t=new L.LatLng(e.loc[1],e.loc[0]),n=L.icon({iconUrl:e.logo,iconSize:[45,55],shadowSize:[50,64],iconAnchor:[22,54],shadowAnchor:[4,62],popupAnchor:[-3,-86]}),a=new L.Marker(t,{icon:n});a.desc="\n    <b>"+e.name+"</b>\n    <p class='content'>\n    <i class=\"fa fa-home\"></i> "+e.address+'<br>\n    <i class="fa fa-phone"></i> '+e.phone+'<br>\n    <img\n      width="40"\n      height="40"\n      class="uber-link"\n      src="/images/uber.png"\n      data-latitude="'+e.loc[1]+'"\n      data-longitude="'+e.loc[0]+'"\n      data-name="'+e.name+'"\n      data-address="'+e.address+", "+e.city+", "+e.state+" "+e.zip+'"\n    />\n    </p>',h.addLayer(a),b.addMarker(a)}),g.addLayer(h)};if($("body").on("click",".uber-link",function(){var e=$(this),t=e.data("latitude"),n=e.data("longitude"),a=e.data("name"),o=e.data("address"),r="https://m.uber.com/ul?client_id=gY6iGb3XfnCI35tZ968HvPWA1rmgBSK1&action=setPickup&pickup[latitude]="+f+"&pickup[longitude]="+m+"&pickup[nickname]=Current%20Location&dropoff[latitude]="+t+"&dropoff[longitude]="+n+"&dropoff[nickname]="+encodeURIComponent(a)+"&dropoff[formatted_address]="+encodeURIComponent(o)+"&product_id=68cddf62-ea57-4cdf-9c63-dfbfebfd7095";window.location=r}),$("body").on("click",".brew",function(){var e=$(this),t=e.data("long"),n=e.data("lat"),a=L.latLng(n,t);g.setView(a,14),p()}),$(".flyout").on("click",function(){var e=$(this).parent();e.toggleClass("active"),e.hasClass("active")?e.css("right","0px"):e.css("right","-260px")}),"geolocation"in navigator){var w=null;navigator.geolocation.watchPosition(function(e){w&&(h.removeLayer(w),b.removeMarker(w));var t=e.coords;f=t.latitude,m=t.longitude;var n=L.latLng(f,m);w=new L.Marker(n),h.addLayer(w),b.addMarker(w)})}var S=["esri/tasks/Geoprocessor","esri/geometry/Point"];require(S,d)});
+$( document ).ready(function() {
+  var currentLat = null
+  var currentLong = null;
+
+  var map = L.map('map').setView([39.1300, -84.5167], 12);
+
+
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      maxZoom: 18,
+      id: 'jakeboyles.j0ajipap',
+      accessToken: "pk.eyJ1IjoiamFrZWJveWxlcyIsImEiOiJNcGJpWXhJIn0.ONDjoScLnbU4_VVfXmeIAA",
+  }).addTo(map);
+
+
+  var markers = new L.FeatureGroup();
+  var options = {
+      'keepSpiderfied':true
+  };
+
+  var oms = new OverlappingMarkerSpiderfier(map, options);
+
+
+  var popup = new L.Popup();
+
+  oms.addListener('click', function(marker) {
+    popup.setContent(marker.desc);
+    popup.setLatLng(marker.getLatLng());
+    map.openPopup(popup);
+  });
+
+  var markers = new L.FeatureGroup();
+
+  var addToMap = function(result)
+  {
+    result = result.breweries;
+    result.forEach(function(brew){
+    var loc = new L.LatLng(brew.loc[1],brew.loc[0]);
+
+    var Icon = L.icon({
+        iconUrl: brew.logo,
+        iconSize:     [45, 55], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 54], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -86] // point from which the popup should open relative to the iconAnchor
+    });
+
+    var marker = new L.Marker(loc, {icon: Icon});
+
+    marker.desc = `
+    <b>${brew.name}</b>
+    <p class='content'>
+    <i class="fa fa-home"></i> ${brew.address}<br>
+    <i class="fa fa-phone"></i> ${brew.phone}<br>
+    <img
+      width="40"
+      height="40"
+      class="uber-link"
+      src="/images/uber.png"
+      data-latitude="${brew.loc[1]}"
+      data-longitude="${brew.loc[0]}"
+      data-name="${brew.name}"
+      data-address="${brew.address}, ${brew.city}, ${brew.state} ${brew.zip}"
+    />
+    </p>`;
+
+    markers.addLayer(marker);
+
+    oms.addMarker(marker);
+  });
+
+  map.addLayer(markers);
+
+  }
+
+  $('body').on('click', '.uber-link', function() {
+    const ele = $(this);
+    const dropLat = ele.data('latitude');
+    const dropLong = ele.data('longitude');
+    const dropName = ele.data('name');
+    const dropAddress = ele.data('address');
+    const link = `https://m.uber.com/ul?client_id=gY6iGb3XfnCI35tZ968HvPWA1rmgBSK1&action=setPickup&pickup[latitude]=${currentLat}&pickup[longitude]=${currentLong}&pickup[nickname]=Current%20Location&dropoff[latitude]=${dropLat}&dropoff[longitude]=${dropLong}&dropoff[nickname]=${encodeURIComponent(dropName)}&dropoff[formatted_address]=${encodeURIComponent(dropAddress)}&product_id=68cddf62-ea57-4cdf-9c63-dfbfebfd7095`;
+
+    window.location = link;
+  });
+
+  function formatDepot(depot) {
+    return {
+      geometry: {
+        x: depot.loc[0],
+        y: depot.loc[1],
+      },
+      attributes: {
+        Name: depot.name,
+      },
+    };
+  }
+
+  function getDepots(depots) {
+    return {
+      features: depots.map(formatDepot),
+    };
+  }
+
+  function formatOrder(order) {
+    return {
+      geometry: {
+        x: order.loc[0],
+        y: order.loc[1],
+      },
+      attributes: {
+        Name: order.name,
+      },
+    };
+  }
+
+  function getOrders(orders) {
+    return {
+      features: orders.map(formatOrder),
+    };
+  }
+
+  function getRoute(depot, i) {
+    return {
+      attributes: {
+        Name: `Route ${i + 1}`,
+        StartDepotName: depot.name,
+        EarliestStartTime: 1455609600000,
+        LatestStartTime: 1455609600000,
+      },
+    };
+  }
+
+  function getRoutes(depots) {
+    return {
+      features: depots.map(getRoute),
+    };
+  }
+
+  function showRoutes(results) {
+    const features = results.value.features
+
+    features.forEach(feature => {
+      const points = features[0].geometry.paths[0].map(p => {
+        return L.latLng(p[1], p[0]);
+      });
+      const polyline = L.polyline(points);
+
+      map.addLayer(polyline);
+    });
+
+    $(".loader").hide();
+  }
+
+  function showStops(breweries) {
+    return results => {
+      const stops = results.value.features
+        .slice()
+        .sort((a, b) => a.attributes.Sequence - b.attributes.Sequence)
+        .map(f => f.attributes.Name)
+        .map(n => breweries.find(b => b.name === n))
+        .filter(Boolean);
+      addToBrewBox(stops);
+    };
+  }
+
+  function showDirections(results) {
+    console.log('showDirections', results);
+  }
+
+  function getGeomappingDataFromArcGis(Geoprocessor, Point, data) {
+    const geoserviceUrl = 'https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem';
+    const arcgis = "GDxFJOJfdQDsPH6jPqOQlwmouhbYJs2mlnAzRQkEUbm-Z8f7_Q0GktvbfFZch0i1WJYeNAZ5sS9IVO6-A3mzK4_9mBTL5tvxqX1b60e3iv8XPQ-AxFP4hLuXz3afu_k3jPKJohVG6_M-56ywgFSGH9Gn83kXK0Yz0N3urj3JemJ9gkrBspnqONq1PPuOToZt";
+    const depots = data.slice(0, 1);
+    const orders = data.slice(1);
+    const geoprocessor = new Geoprocessor(`${geoserviceUrl}?token=${arcgis}`);
+    const params = {
+      default_date: 1455609600000,
+      time_units: "Minutes",
+      distance_units: "Miles",
+      depots: JSON.stringify(getDepots(depots)),
+      orders: JSON.stringify(getOrders(orders)),
+      routes: JSON.stringify(getRoutes(depots)),
+      populate_directions: true,
+    };
+
+    geoprocessor.submitJob(params).then(results => {
+      geoprocessor.getResultData(results.jobId, "out_routes").then(showRoutes);
+      geoprocessor.getResultData(results.jobId, "out_stops").then(showStops(data));
+      geoprocessor.getResultData(results.jobId, "out_directions").then(showDirections);
+    });
+  }
+
+  function setupGeomapping(Geoprocessor, Point) {
+    var id = $('input').val();
+    $.ajax({
+      url: "/api/crawls/breweries/" + id,
+      success: function(result) {
+        addToMap(result);
+        getGeomappingDataFromArcGis(Geoprocessor, Point, result.breweries);
+    }});
+
+  }
+
+  function addToBrewBox(brews){
+    brews.forEach( brew => {
+      $(".allBreweries .brews").append(`
+        <div class='brew' data-long="${brew.loc[0]}" data-lat="${brew.loc[1]}">
+          <img src="${brew.logo}" />
+          <h3>${brew.name}</h3>
+        </div>
+        `);
+    })
+  };
+
+  $('body').on('click', '.brew', function() {
+    const ele = $(this);
+    const longitude = ele.data('long');
+    const latitude = ele.data('lat');
+    const point = L.latLng(latitude, longitude);
+
+    map.setView(point, 14);
+
+    closeAllBreweries();
+  });
+
+  function closeAllBreweries() {
+    const ele = $('.allBreweries');
+    ele.removeClass('active');
+    ele.css('right', '-260px');
+  }
+
+  $(".flyout").on("click",function() {
+    var parent =  $(this).parent();
+    parent.toggleClass('active');
+
+    if(parent.hasClass('active'))
+    {
+      parent.css("right","0px");
+    }
+    else
+    {
+      parent.css("right","-260px");
+    }
+  });
+
+  if ('geolocation' in navigator) {
+    var userLocationMarker = null;
+
+    navigator.geolocation.watchPosition(position => {
+      if (userLocationMarker) {
+        markers.removeLayer(userLocationMarker);
+        oms.removeMarker(userLocationMarker);
+      }
+
+      const coords = position.coords;
+      currentLat = coords.latitude;
+      currentLong = coords.longitude;
+
+      const point = L.latLng(currentLat, currentLong);
+
+      userLocationMarker = new L.Marker(point);
+
+      markers.addLayer(userLocationMarker);
+      oms.addMarker(userLocationMarker);
+    });
+  }
+
+  const dependencies = [
+    "esri/tasks/Geoprocessor",
+    "esri/geometry/Point",
+  ];
+
+  require(dependencies, setupGeomapping);
+});
