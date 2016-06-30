@@ -303,11 +303,30 @@ html {
     z-index: 9999;
 }
 
-#directions {
+
+
+.directionContainer {
 	position:absolute;
-	top:90px;
-	left:40px;
-	background-color:rgba(0,0,0,.7);
+	top:100px;
+	left:-250px;
+	width:250px;
+
+	#mapIcon {
+		background-color: rgba(0, 0, 0, 0.9);
+	    border-radius: 0 10px 10px 0;
+	    color: #fff;
+	    font-size: 25px;
+	    padding: 15px;
+	    position: absolute;
+	    right: -58px;
+	    top: 0;
+	}
+
+	#directions {
+	position:absolute;
+	top:0px;
+	left:0px;
+	background-color:rgba(0,0,0,.9);
 	padding:20px;
 	max-height:400px;
 	max-width:300px;
@@ -317,6 +336,12 @@ html {
 		color:#fff;
 		margin-bottom:10px;
 	}
+}
+}
+
+.directionContainer.active {
+	position:absolute;
+	left:0px;
 }
 
 

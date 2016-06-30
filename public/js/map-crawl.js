@@ -265,6 +265,11 @@ $( document ).ready(function() {
     }
   });
 
+  $("#mapIcon").on("click",function(){
+    console.log("clicked button");
+    $(this).parent().toggleClass('active');
+  })
+
   if ('geolocation' in navigator) {
     var userLocationMarker = null;
 
