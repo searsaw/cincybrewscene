@@ -85,6 +85,14 @@ $( document ).ready(function() {
     window.location = link;
   });
 
+
+  function addDirections(directions) {
+    directions.forEach(function(direction){
+      console.log(direction.attributes.Text);
+      $("#directions").append(`<p><i class="fa fa-car"></i> ${direction.attributes.Text}</p>`);
+    })
+  }
+
   function formatDepot(depot) {
     return {
       geometry: {
@@ -166,7 +174,7 @@ $( document ).ready(function() {
   }
 
   function showDirections(results) {
-    console.log('showDirections', results);
+    addDirections(results.value.features);
   }
 
  

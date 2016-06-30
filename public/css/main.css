@@ -1759,6 +1759,19 @@ html {
   top: 0;
   z-index: 9999;
 }
+#directions {
+  position: absolute;
+  top: 90px;
+  left: 40px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+#directions p {
+  color: #fff;
+  margin-bottom: 10px;
+}
 .singleCrawl {
   padding: 10px;
 }
