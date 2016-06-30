@@ -74,6 +74,15 @@ router.get('/create',isLoggedIn, (req, res) => {
     res.render('create',{brews:brews});
   })
 
+});
+
+
+router.get('/crawls', (req, res) => {
+
+  crawl.find(function (err, crawls) {
+    if (err) return console.error(err);
+    res.render('crawls',{crawls});
+  })
 
 });
 

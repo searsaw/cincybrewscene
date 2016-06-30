@@ -39,11 +39,14 @@ server.use(session({
   }),
 }));
 
+
+// On server load get a new token
 helpers.then(function(token){
     token = token.access_token;
     exports.token = token;
   })
 
+// Get a new token every day at 1am and 1pm.
 new CronJob('0 1,13 * * *', function() {
   helpers.then(function(token){
     token = token.access_token;

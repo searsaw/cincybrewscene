@@ -1,6 +1,4 @@
 const request = require('request'); // npm install request
-const token = "";
-
 
   var promise = new Promise(
     function(resolve, reject) {

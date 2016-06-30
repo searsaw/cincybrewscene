@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="header col-xs-12">
+        <h2><i class="fa fa-beer" aria-hidden="true"></i> View Crawls <a href="/" class="fa fa-home home"></a></h2>
+    </div>
+
+
+    <section class="col-md-6 col-md-offset-3">
+    <div class="row">
+        {{#each crawls}}
+            <div class="singleCrawl col-md-6">   
+              <div> 
+                <h3>{{this.name}}</h3>
+                <a href="/map/{{this._id}}" class="btn btn-primary">View Crawl</a>
+              </div>
+            </div>
+        {{/each}}
+    </div>
+
+    </section>
+  </div>
+</div>
+
+{{#section 'scripts'}}
+<script src="dist/main.js"></script>
+{{/section}}
