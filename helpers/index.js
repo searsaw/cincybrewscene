@@ -8,8 +8,8 @@ const request = require('request'); // npm install request
         json: true,
         form: {
           'f': 'json',
-          'client_id': 'URTLuc6ZAWQir2dC',
-          'client_secret': '12a35b0f6c5746508e48b898627207b0',
+          'client_id': 'StmlPjfGYsyT2CVX',
+          'client_secret': 'e265cb500e17421ead0eac373c6872d8',
           'grant_type': 'client_credentials',
           'expiration': '1440'
         }
