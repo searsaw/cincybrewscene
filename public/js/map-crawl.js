@@ -88,8 +88,13 @@ $( document ).ready(function() {
 
   function addDirections(directions) {
     directions.forEach(function(direction){
-      console.log(direction.attributes.Text);
-      $("#directions").append(`<p><i class="fa fa-car"></i> ${direction.attributes.Text}</p>`);
+      console.log(direction);
+      if(direction.attributes.Type !== 1)
+      {
+        $("#directions").append(`<p><i class="fa fa-car"></i> ${direction.attributes.Text}</p>`);
+      return;
+      }
+      $("#directions").append(`<p><i class="fa fa-home"></i> ${direction.attributes.Text}</p>`);
     })
   }
 

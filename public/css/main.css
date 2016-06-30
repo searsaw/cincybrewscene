@@ -1787,7 +1787,11 @@ html {
 }
 .directionContainer #directions p {
   color: #fff;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+}
+.directionContainer #directions p i {
+  margin-right: 10px;
+  font-size: 17px;
 }
 .directionContainer.active {
   position: absolute;
