@@ -1809,6 +1809,9 @@ html {
   padding: 30px;
   text-align: center;
 }
+.crawl-brewery {
+  height: 200px;
+}
 .crawl-brewery img {
   max-width: 100%;
 }
