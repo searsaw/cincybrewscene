@@ -70,7 +70,7 @@ function isLoggedIn(req,res,next){
 
 router.get('/create',isLoggedIn, (req, res) => {
 
-  brewery.find(function (err, brews) {
+  brewery.find((err, brews) => {
     if (err) return console.error(err);
     res.render('create',{brews:brews});
   })
@@ -78,30 +78,36 @@ router.get('/create',isLoggedIn, (req, res) => {
 });
 
 
+// Get all the crawls with reviews
 router.get('/crawls', (req, res) => {
 
-  crawl.find().populate('reviews').exec((err, crawls) => {
+  crawl.find().sort([['reviews', 'descending']]).populate('reviews').exec((err, crawls) => {
     if (err) return console.error(err);
     res.render('crawls',{crawls});
   })
 
 });
 
+
+// Get a single crawl
 router.get('/crawl/:id',isLoggedIn, (req, res) => {
-  crawl.find({_id:req.params.id}).populate('breweries').exec(function(err, crawl) {
+  var populateQuery = [{path:'breweries'}, {path:'reviews'}];
+  crawl.find({_id:req.params.id}).populate(populateQuery).exec((err, crawl) => {
       if (err) {
           res.render('error', {
               status: 500
           });
       } else {
+          // Returns an array :(
           crawl = crawl[0];
-            review.find({crawl:mongoose.Types.ObjectId(req.params.id)},(err,reviews) => {
-              res.render('crawl-page',{crawl:crawl,reviews:{review:reviews.length}});
-          })
+          let reviews = crawl.reviews;
+          res.render('crawl-page',{crawl:crawl,reviews:{review:reviews.length}});
       }
   });
 });
 
+
+// A user is posting a new vote for a crawl
 router.post('/crawl/vote', (req, res) => {
   review.update(
     {crawl: mongoose.Types.ObjectId(req.body.crawl),poster: req.user},
@@ -116,15 +122,21 @@ router.post('/crawl/vote', (req, res) => {
       if (err) {
         res.send(err);
       }
+
+      // If we added a review update the crawl with the new review
       if(numAffected.upserted)
       {
         crawl.update(
           {_id:req.body.crawl},
-          { $push: { reviews: numAffected.electionId } },
-          function(err,stuff){
+          { $push: { reviews: numAffected.upserted[0]._id } },
+          (err,stuff) => {
             res.send(numAffected);
           }
         );
+      }
+      else
+      {
+        res.send(numAffected);
       }
     }
   );
