@@ -81,7 +81,7 @@ router.get('/create',isLoggedIn, (req, res) => {
 // Get all the crawls with reviews
 router.get('/crawls', (req, res) => {
 
-  crawl.find().sort([['reviews', 'descending']]).populate('reviews').exec((err, crawls) => {
+  crawl.find().sort([['reviewLength', 'descending']]).populate('reviews').exec((err, crawls) => {
     if (err) return console.error(err);
     res.render('crawls',{crawls});
   })
@@ -128,7 +128,10 @@ router.post('/crawl/vote', (req, res) => {
       {
         crawl.update(
           {_id:req.body.crawl},
-          { $push: { reviews: numAffected.upserted[0]._id } },
+          { 
+            $push: { reviews: numAffected.upserted[0]._id },
+            $inc: { "reviewLength": 1 }
+           },
           (err,stuff) => {
             res.send(numAffected);
           }

@@ -29,6 +29,9 @@ const CrawlSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Review',
   }],
+  reviewLength: {
+    type:Number,
+  }
 });
 
 module.exports = mongoose.model('Crawl', CrawlSchema);
