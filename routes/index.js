@@ -2,6 +2,7 @@ const router = require('express').Router();
 const authRoutes = require('./auth');
 const brewery = require('../mongoose/brewery');
 const crawl = require('../mongoose/crawl');
+const review = require('../mongoose/review');
 const apiRoutes = require('./api');
 const mongoose = require('mongoose');
 
@@ -45,7 +46,7 @@ router.post('/brewery/create', (req,res) => {
 	dates = dates[2]+"-"+dates[0]+"-"+dates[1]+" "+req.body.time;
 	time = new Date(dates);
 
-	crawl.create({
+	 crawl.create({
             name : req.body.name,
             breweries : req.body.breweries,
             date: time,
@@ -62,7 +63,7 @@ router.post('/brewery/create', (req,res) => {
 
 function isLoggedIn(req,res,next){
   if(typeof req.user!== "object"){
-   return res.redirect('login');
+   return res.redirect('/login');
   }
   next();
 }
@@ -79,11 +80,54 @@ router.get('/create',isLoggedIn, (req, res) => {
 
 router.get('/crawls', (req, res) => {
 
-  crawl.find(function (err, crawls) {
+  crawl.find().populate('reviews').exec((err, crawls) => {
     if (err) return console.error(err);
     res.render('crawls',{crawls});
   })
 
+});
+
+router.get('/crawl/:id',isLoggedIn, (req, res) => {
+  crawl.find({_id:req.params.id}).populate('breweries').exec(function(err, crawl) {
+      if (err) {
+          res.render('error', {
+              status: 500
+          });
+      } else {
+          crawl = crawl[0];
+            review.find({crawl:mongoose.Types.ObjectId(req.params.id)},(err,reviews) => {
+              res.render('crawl-page',{crawl:crawl,reviews:{review:reviews.length}});
+          })
+      }
+  });
+});
+
+router.post('/crawl/vote', (req, res) => {
+  review.update(
+    {crawl: mongoose.Types.ObjectId(req.body.crawl),poster: req.user},
+    {
+      suggested : true,
+      crawl : mongoose.Types.ObjectId(req.body.crawl),
+      poster: req.user,
+   },
+    {upsert: true}, 
+    function(err, numAffected) {
+
+      if (err) {
+        res.send(err);
+      }
+      if(numAffected.upserted)
+      {
+        crawl.update(
+          {_id:req.body.crawl},
+          { $push: { reviews: numAffected.electionId } },
+          function(err,stuff){
+            res.send(numAffected);
+          }
+        );
+      }
+    }
+  );
 });
 
 router.get('/login', (req, res) => {

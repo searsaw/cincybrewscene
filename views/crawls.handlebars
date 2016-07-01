@@ -8,10 +8,11 @@
     <section class="col-md-6 col-md-offset-3">
     <div class="row">
         {{#each crawls}}
+            {{this.reviews}}
             <div class="singleCrawl col-md-6">   
               <div> 
                 <h3>{{this.name}}</h3>
-                <a href="/map/{{this._id}}" class="btn btn-primary">View Crawl</a>
+                <a href="/crawl/{{this.id}}" class="btn btn-primary">View Crawl</a>
               </div>
             </div>
         {{/each}}

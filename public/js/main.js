@@ -56,5 +56,30 @@ $( document ).ready(function() {
 		  	window.location.href = '/map/'+response._id;
 		  }		
 		});
-	})
+	});
+
+
+	$(".fa-thumbs-up").on("click",function(){
+		var id = $(this).data('id');
+		$.ajax({
+		  type: "POST",
+		  url: '/crawl/vote',
+		  data: {crawl:id},
+		  success: response => {
+		  	if(response.errors)
+		  	{
+		  		alert(response.errors.name.message);
+		  		return;
+		  	}
+		  	else if(response.upserted)
+		  	{
+		  		var vote = $(".vote").html();
+		  		$(".vote").html(parseInt(vote)+1);
+		  	}
+		  	else {
+		  		alert("You can only vote once.");
+		  	}
+		  }		
+		});
+	});
 });

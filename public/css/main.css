@@ -1809,3 +1809,16 @@ html {
   padding: 30px;
   text-align: center;
 }
+.crawl-brewery img {
+  max-width: 100%;
+}
+.votes i {
+  font-size: 25px;
+  float: left;
+}
+.votes i:hover {
+  cursor: pointer;
+}
+.votes p {
+  font-size: 20px;
+}
